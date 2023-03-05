@@ -6,7 +6,6 @@ import lombok.*;
 @Setter
 @Getter
 @ToString
-
 public class Helicopter {
     private int id = 100;
     private String model;
@@ -15,13 +14,10 @@ public class Helicopter {
     private int fuelCapacity;
     private int currentFuel;
   
-    public static Helicopter instance;
+    private static Helicopter defaultHelicopter = new Helicopter();
   
     public static Helicopter getInstance() {
-        if (instance == null) {
-            return new Helicopter();
-        }
-        return instance;
+        return defaultHelicopter;
     }
   
     public void takeOff() {
@@ -58,6 +54,7 @@ public class Helicopter {
 
         //let`s create object by @NoArgsConstructor from lombok.
         helicopters[0] = new Helicopter();
+        helicopters[0].setId(101);
         helicopters[0].setModel("Hind");
         helicopters[0].setFuelCapacity(1500);
         helicopters[0].setCurrentFuel(950);
@@ -65,7 +62,7 @@ public class Helicopter {
         helicopters[0].setCurrentAltitude(1100);
 
         //let`s create object by @AllArgsConstructor from lombok.
-        helicopters[1] = new Helicopter(101, "Hip",
+        helicopters[1] = new Helicopter(102, "Hip",
                                         700, 5000,
                                         1300, 500);
 
@@ -79,17 +76,9 @@ public class Helicopter {
         helicopters[2].setCurrentAltitude(2670);
 
         helicopters[3] = getInstance();
-        helicopters[3].setId(103);
-        helicopters[3].setModel("Hip");
-        helicopters[3].setFuelCapacity(1300);
-        helicopters[3].setCurrentFuel(1200);
-        helicopters[3].setMaxAltitude(5000);
-        helicopters[3].setCurrentAltitude(3000);
 
-        int index = 0;
-        while (index < helicopters.length) {
-            System.out.println(helicopters[index]);
-            index++;
+        for (int i = 0; i < helicopters.length; i++) {
+            System.out.println(helicopters[i]);
         }
     }
 }
