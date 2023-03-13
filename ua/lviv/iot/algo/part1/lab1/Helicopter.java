@@ -25,7 +25,11 @@ public class Helicopter {
     }
   
     public void ascend(int altitude) {
-        this.currentAltitude += altitude;
+        if (this.currentAltitude + altitude <= this.maxAltitude) {
+            this.currentAltitude += altitude;
+        } else {
+            this.currentAltitude = this.maxAltitude;
+        }
     }
   
     public void descend(int altitude) {
@@ -49,36 +53,15 @@ public class Helicopter {
     }
 
     public static void main(String[] args) {
-        Helicopter[] helicopters;
-        helicopters = new Helicopter[4];
+        Helicopter[] helicopters = {new Helicopter(),
+                new Helicopter(101, "Hip",
+                700, 5000,
+                1300, 500),
+                getInstance(),
+                getInstance()};
 
-        //let`s create object by @NoArgsConstructor from lombok.
-        helicopters[0] = new Helicopter();
-        helicopters[0].setId(101);
-        helicopters[0].setModel("Hind");
-        helicopters[0].setFuelCapacity(1500);
-        helicopters[0].setCurrentFuel(950);
-        helicopters[0].setMaxAltitude(4500);
-        helicopters[0].setCurrentAltitude(1100);
-
-        //let`s create object by @AllArgsConstructor from lombok.
-        helicopters[1] = new Helicopter(102, "Hip",
-                                        700, 5000,
-                                        1300, 500);
-
-        //let`s create 2 objects by static method getInstance()
-        helicopters[2] = getInstance();
-        helicopters[2].setId(102);
-        helicopters[2].setModel("Hind");
-        helicopters[2].setFuelCapacity(1500);
-        helicopters[2].setCurrentFuel(730);
-        helicopters[2].setMaxAltitude(4500);
-        helicopters[2].setCurrentAltitude(2670);
-
-        helicopters[3] = getInstance();
-
-        for (int i = 0; i < helicopters.length; i++) {
-            System.out.println(helicopters[i]);
+        for (Helicopter helicopter : helicopters) {
+            System.out.println(helicopter);
         }
     }
 }
